@@ -10,8 +10,15 @@
       :name="name"
       :required="props.required"
       :placeholder="props.placeholder"
+      :value="props.value"
       class="px-1 py-2"
       @invalid="(e) => setCustomRequiredMessage(e, true)"
+      @input="
+        (e) => {
+          setCustomRequiredMessage(e, false);
+          $emit('update:value', e.target.value);
+        }
+      "
     />
   </label>
 </template>
@@ -22,6 +29,11 @@ import { defineProps } from "vue";
 const props = defineProps({
   label: {
     type: String,
+    default: "",
+  },
+  value: {
+    type: String,
+    required: true,
     default: "",
   },
   type: {
@@ -54,6 +66,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["update:value"]);
+
 const setCustomRequiredMessage = (input, invalid) => {
   if (!props.required) {
     return;
@@ -76,10 +90,6 @@ label {
   input {
     border-style: solid;
     border-radius: 0.4rem;
-
-    &:invalid {
-      border-color: red;
-    }
   }
 }
 </style>

@@ -1,5 +1,12 @@
 <template>
-  <BaseInput label="Sua senha" name="password" type="password" required />
+  <BaseInput
+    :value="clientInfo.password"
+    label="Sua senha"
+    name="password"
+    type="password"
+    required
+    @update:value="(val) => updateClientInfo('password', val)"
+  />
 </template>
 
 <script setup>

@@ -6,10 +6,19 @@
     </div>
     <h1 class="fw-600">{{ currentStepObj.title }}</h1>
 
-    <form @submit="handleSubmit">
-      <Component :is="currentStepObj.component" :validate-form="!isLastStep" />
+    <form
+      class="step-builder"
+      :class="[submitTriggered && 'validated']"
+      @submit="handleSubmit"
+      :novalidate="isLastStep || !submitTriggered"
+    >
+      <Component :is="currentStepObj.component" />
       <div class="mt-3 action-buttons d-flex">
-        <BaseButton v-if="unref(currentStep) !== 1" theme="secondary">
+        <BaseButton
+          v-if="unref(currentStep) !== 1"
+          theme="secondary"
+          @click="() => currentStep--"
+        >
           Voltar
         </BaseButton>
         <BaseButton type="submit">
@@ -31,7 +40,8 @@ const props = defineProps({
   },
 });
 
-const currentStep = ref(4);
+const currentStep = ref(1);
+const submitTriggered = ref(false);
 
 const totalSteps = computed(() => props.steps.length);
 const isLastStep = computed(() => unref(currentStep) === unref(totalSteps));
@@ -41,7 +51,19 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const isFormValid = e.target.checkValidity();
 
-  // emit event for submit so the parent component can handle api calls and etc
+  if (!isFormValid) {
+    debugger;
+    submitTriggered.value = true;
+    return;
+  }
+
+  if (unref(isLastStep)) {
+    // emit event for submit so the parent component can handle api calls and etc
+    return;
+  }
+
+  currentStep.value++;
+  submitTriggered.value = false;
 };
 </script>
 
@@ -55,6 +77,12 @@ const handleSubmit = (e) => {
 
   button {
     flex: 1 1;
+  }
+}
+
+.validated:deep() {
+  input:invalid {
+    border-color: red;
   }
 }
 </style>

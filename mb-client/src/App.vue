@@ -39,9 +39,7 @@ const steps = computed(() => [
   },
 ]);
 
-const updateClientInfo = (key, value) => {
-  clientInfo.value[key] = value;
-};
+const updateClientInfo = (key, value) => (clientInfo.value[key] = value);
 
 provide("clientInfo", { clientInfo, updateClientInfo });
 </script>
