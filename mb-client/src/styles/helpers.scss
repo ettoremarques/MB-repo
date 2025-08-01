@@ -1,0 +1,59 @@
+$fontSizes: (
+  1: 1.5rem,
+  2: 1rem,
+  3: 0.75rem,
+  4: 0.5rem,
+);
+
+@each $key, $value in $fontSizes {
+  h#{$key} {
+    font-size: $value;
+    margin-bottom: $value;
+  }
+}
+
+$fontWeights: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+@each $value in $fontWeights {
+  .fw-#{$value} {
+    font-weight: $value;
+  }
+}
+
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+);
+
+@each $key, $value in $spacers {
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+  .py-#{$key} {
+    padding-bottom: $value;
+    padding-top: $value;
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+
+$flexDirections: row, column;
+
+@each $value in $flexDirections {
+  .flex-#{$value} {
+    flex-direction: $value;
+  }
+}
