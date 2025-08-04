@@ -10,18 +10,19 @@
       class="step-builder"
       :class="[submitTriggered && 'validated']"
       @submit="handleSubmit"
-      :novalidate="isLastStep || !submitTriggered"
+      :novalidate="!submitTriggered"
     >
       <Component :is="currentStepObj.component" />
       <div class="mt-3 action-buttons d-flex">
         <BaseButton
           v-if="unref(currentStep) !== 1"
           theme="secondary"
+          :disabled="loading"
           @click="() => currentStep--"
         >
           Voltar
         </BaseButton>
-        <BaseButton type="submit">
+        <BaseButton type="submit" :loading="loading">
           {{ isLastStep ? "Cadastrar" : "Continuar" }}
         </BaseButton>
       </div>
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed, unref } from "vue";
+import { ref, defineProps, computed, unref, defineEmits } from "vue";
 import BaseButton from "./BaseButton.vue";
 
 const props = defineProps({
@@ -38,7 +39,13 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const emit = defineEmits(["submit"]);
 
 const currentStep = ref(1);
 const submitTriggered = ref(false);
@@ -52,13 +59,12 @@ const handleSubmit = (e) => {
   const isFormValid = e.target.checkValidity();
 
   if (!isFormValid) {
-    debugger;
     submitTriggered.value = true;
     return;
   }
 
   if (unref(isLastStep)) {
-    // emit event for submit so the parent component can handle api calls and etc
+    emit("submit");
     return;
   }
 
@@ -82,7 +88,7 @@ const handleSubmit = (e) => {
 
 .validated:deep() {
   input:invalid {
-    border-color: red;
+    outline: 2px solid red;
   }
 }
 </style>

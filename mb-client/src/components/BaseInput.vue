@@ -12,6 +12,7 @@
       :placeholder="props.placeholder"
       :value="props.value"
       class="px-1 py-2"
+      :class="[props.error && 'invalid']"
       @invalid="(e) => setCustomRequiredMessage(e, true)"
       @input="
         (e) => {
@@ -20,6 +21,7 @@
         }
       "
     />
+    <span v-if="props.error" class="error mt-1">{{ props.error }}</span>
   </label>
 </template>
 
@@ -64,6 +66,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  error: {
+    type: String,
+    default: "",
+  },
 });
 
 const emit = defineEmits(["update:value"]);
@@ -90,6 +96,14 @@ label {
   input {
     border-style: solid;
     border-radius: 0.4rem;
+
+    &.invalid {
+      outline: 2px solid red;
+    }
   }
+}
+
+.error {
+  color: red;
 }
 </style>

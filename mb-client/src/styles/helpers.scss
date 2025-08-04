@@ -35,6 +35,12 @@ $spacers: (
   .mb-#{$key} {
     margin-bottom: $value;
   }
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+  .mr-#{$key} {
+    margin-right: $value;
+  }
 
   .px-#{$key} {
     padding-left: $value;

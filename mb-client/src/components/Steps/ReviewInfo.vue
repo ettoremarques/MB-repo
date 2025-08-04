@@ -1,6 +1,7 @@
 <template>
   <BaseInput
     :value="clientInfo.email"
+    :error="errors.email"
     class="mb-3"
     label="Endereço de e-mail"
     type="email"
@@ -9,6 +10,7 @@
   <Component :is="isClientJuridic ? JuridicPersonForm : NaturalPersonForm" />
   <BaseInput
     :value="clientInfo.password"
+    :error="errors.password"
     class="mt-3"
     label="Sua senha"
     name="password"
@@ -23,7 +25,7 @@ import BaseInput from "../BaseInput.vue";
 import NaturalPersonForm from "./NaturalPersonForm.vue";
 import JuridicPersonForm from "./JuridicPersonForm.vue";
 
-const { clientInfo, updateClientInfo } = inject("clientInfo");
+const { clientInfo, updateClientInfo, errors } = inject("clientInfo");
 
 const isClientJuridic = computed(
   () => unref(clientInfo)?.personType === "juridic"

@@ -1,11 +1,18 @@
 <template>
   <div class="container py-3">
-    <StepBuilder :steps="steps" />
+    <h1 v-if="status === STATUS.SUCCESS">Cliente cadastrado com sucesso!</h1>
+    <StepBuilder
+      v-else
+      :steps="steps"
+      :loading="status === STATUS.PENDING"
+      @submit="handleSubmit"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, provide } from "vue";
+import { ref, computed, provide, unref } from "vue";
+import useFetch, { STATUS } from "./composables/useFetch";
 import StepBuilder from "./components/StepBuilder.vue";
 import Welcome from "./components/Steps/Welcome.vue";
 import JuridicPersonForm from "./components/Steps/JuridicPersonForm.vue";
@@ -14,13 +21,22 @@ import Password from "./components/Steps/Password.vue";
 import ReviewInfo from "./components/Steps/ReviewInfo.vue";
 
 const clientInfo = ref({});
+const {
+  load: handleSubmit,
+  status,
+  errors,
+} = useFetch({
+  endpoint: "/registration",
+  method: "POST",
+  body: clientInfo,
+});
 
 const steps = computed(() => [
   {
     component: Welcome,
     title: "Seja bem vindo(a)",
   },
-  clientInfo.personType === "juridic"
+  unref(clientInfo).personType == "juridic"
     ? {
         component: JuridicPersonForm,
         title: "Pessoa Jurídica",
@@ -41,7 +57,7 @@ const steps = computed(() => [
 
 const updateClientInfo = (key, value) => (clientInfo.value[key] = value);
 
-provide("clientInfo", { clientInfo, updateClientInfo });
+provide("clientInfo", { clientInfo, updateClientInfo, errors });
 </script>
 
 <style lang="scss" scoped>

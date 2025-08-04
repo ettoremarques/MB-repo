@@ -5,6 +5,7 @@
     name="nome"
     required
     :value="clientInfo.name"
+    :error="errors.name"
     @update:value="(val) => updateClientInfo('name', val)"
   />
   <BaseInput
@@ -16,7 +17,10 @@
     invalid-message="Use a formatação correta"
     required
     :value="clientInfo.cpf"
-    @update:value="(val) => updateClientInfo('cpf', val)"
+    :error="errors.cpf"
+    @update:value="
+      (val) => updateClientInfo('cpf', useFormatDocument(val, 'cpf'))
+    "
   />
   <BaseInput
     class="mb-3"
@@ -25,6 +29,7 @@
     type="date"
     required
     :value="clientInfo.birthDate"
+    :error="errors.birthDate"
     @update:value="(val) => updateClientInfo('birthDate', val)"
   />
   <BaseInput
@@ -36,18 +41,18 @@
     invalid-message="Use a formatação correta"
     required
     :value="clientInfo.tel"
-    @update:value="(val) => updateClientInfo('tel', val)"
+    :error="errors.tel"
+    @update:value="(val) => updateClientInfo('tel', useFormatTel(val))"
   />
 </template>
 
 <script setup>
-// I've got the pattern for brazilian tel from this gist
-// https://gist.github.com/claudiosanches/9200536
-
+import { inject } from "vue";
+import useFormatTel from "../../composables/useFormatTel";
+import useFormatDocument from "../../composables/useFormatDocument";
 import BaseInput from "../BaseInput.vue";
-import { defineProps, inject } from "vue";
 
-const { clientInfo, updateClientInfo } = inject("clientInfo");
+const { clientInfo, updateClientInfo, errors } = inject("clientInfo");
 </script>
 
 <style lang="sass" scoped></style>
