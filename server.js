@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "dist")));
 
 const cpfRegex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
 const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
@@ -60,7 +62,9 @@ const validateNaturalForm = (data) => {
   return errors;
 };
 
-app.get("/registration", (req, res) => {});
+app.get("/registration", (req, res) => {
+  res.sendFile(path.join(__dirname, "./dist/index.html"));
+});
 
 app.post("/registration", (req, res) => {
   const isTelValid = telRegex.exec(req.body.tel);
