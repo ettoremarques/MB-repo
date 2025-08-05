@@ -1,8 +1,6 @@
 <template>
-  <BaseInput
+  <BaseEmailinput
     class="mb-3"
-    label="Endereço de e-mail"
-    type="email"
     :value="clientInfo.email"
     required
     @update:value="(val) => updateClientInfo('email', val)"
@@ -33,7 +31,7 @@
 
 <script setup>
 import { inject } from "vue";
-import BaseInput from "../BaseInput.vue";
+import BaseEmailinput from "../BaseEmailinput.vue";
 
 const { clientInfo, updateClientInfo } = inject("clientInfo");
 </script>

@@ -1,29 +1,21 @@
 <template>
-  <BaseInput
+  <BaseEmailinput
     class="mb-3"
-    label="Endereço de e-mail"
-    type="email"
     :value="clientInfo.email"
-    :error="errors.email"
+    :error="errors?.email"
+    required
     @update:value="(val) => updateClientInfo('email', val)"
   />
   <Component :is="isClientJuridic ? JuridicPersonForm : NaturalPersonForm" />
-  <BaseInput
-    class="mt-3"
-    label="Sua senha"
-    name="password"
-    type="password"
-    :value="clientInfo.password"
-    :error="errors.password"
-    @update:value="(val) => updateClientInfo('password', val)"
-  />
+  <Password class="mt-3" />
 </template>
 
 <script setup>
 import { computed, inject, unref } from "vue";
-import BaseInput from "../BaseInput.vue";
 import NaturalPersonForm from "./NaturalPersonForm.vue";
 import JuridicPersonForm from "./JuridicPersonForm.vue";
+import Password from "./Password.vue";
+import BaseEmailinput from "../BaseEmailinput.vue";
 
 const { clientInfo, updateClientInfo, errors } = inject("clientInfo");
 
