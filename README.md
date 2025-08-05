@@ -12,6 +12,7 @@ OBS: O componente Password.vue é o único que sai um pouco fora do padrão de c
 
 
 
+OBS2: Para testar o caso de erro da api, sugiro colocar uma data futura que seja diferente de hoje.
 
 
 ## Rodando localmente
