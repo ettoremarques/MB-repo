@@ -15,6 +15,7 @@
       <div class="mt-3 action-buttons d-flex">
         <BaseButton
           v-if="unref(currentStep) !== 1"
+          type="button"
           theme="secondary"
           :disabled="loading"
           @click="() => currentStep--"
