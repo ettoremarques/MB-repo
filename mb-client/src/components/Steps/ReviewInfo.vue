@@ -1,20 +1,20 @@
 <template>
   <BaseInput
-    :value="clientInfo.email"
-    :error="errors.email"
     class="mb-3"
     label="Endereço de e-mail"
     type="email"
+    :value="clientInfo.email"
+    :error="errors.email"
     @update:value="(val) => updateClientInfo('email', val)"
   />
   <Component :is="isClientJuridic ? JuridicPersonForm : NaturalPersonForm" />
   <BaseInput
-    :value="clientInfo.password"
-    :error="errors.password"
     class="mt-3"
     label="Sua senha"
     name="password"
     type="password"
+    :value="clientInfo.password"
+    :error="errors.password"
     @update:value="(val) => updateClientInfo('password', val)"
   />
 </template>
@@ -31,5 +31,3 @@ const isClientJuridic = computed(
   () => unref(clientInfo)?.personType === "juridic"
 );
 </script>
-
-<style lang="sass" scoped></style>

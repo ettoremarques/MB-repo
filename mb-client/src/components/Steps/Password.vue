@@ -1,9 +1,9 @@
 <template>
   <BaseInput
-    :value="clientInfo.password"
     label="Sua senha"
     name="password"
     type="password"
+    :value="clientInfo.password"
     required
     @update:value="(val) => updateClientInfo('password', val)"
   />
@@ -15,5 +15,3 @@ import BaseInput from "../BaseInput.vue";
 
 const { clientInfo, updateClientInfo } = inject("clientInfo");
 </script>
-
-<style lang="sass" scoped></style>

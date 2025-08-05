@@ -1,9 +1,9 @@
 <template>
   <BaseInput
-    :value="clientInfo.email"
     class="mb-3"
     label="Endereço de e-mail"
     type="email"
+    :value="clientInfo.email"
     required
     @update:value="(val) => updateClientInfo('email', val)"
   />
@@ -37,5 +37,3 @@ import BaseInput from "../BaseInput.vue";
 
 const { clientInfo, updateClientInfo } = inject("clientInfo");
 </script>
-
-<style lang="sass" scoped></style>

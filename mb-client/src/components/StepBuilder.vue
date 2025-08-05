@@ -5,12 +5,11 @@
       {{ totalSteps }}
     </div>
     <h1 class="fw-600">{{ currentStepObj.title }}</h1>
-
     <form
       class="step-builder"
       :class="[submitTriggered && 'validated']"
-      @submit="handleSubmit"
       :novalidate="!submitTriggered"
+      @submit="handleSubmit"
     >
       <Component :is="currentStepObj.component" />
       <div class="mt-3 action-buttons d-flex">

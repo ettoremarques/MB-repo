@@ -1,6 +1,6 @@
 import { ref, unref } from "vue";
 
-var BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000";
 
 export const STATUS = {
   PENDING: "pending",
@@ -9,7 +9,7 @@ export const STATUS = {
 };
 
 // usually when I create this composable, I also add the retry functionality.
-// I didn't added here, because it doesn't make sense for this use case
+// I didn't add it here, because it doesn't make sense for this use case
 export default function useFetch({
   endpoint,
   body = ref({}),
@@ -33,7 +33,7 @@ export default function useFetch({
     fetch(`${BASE_URL}${endpoint}`, {
       ...init,
       method,
-      body: JSON.stringify(unref(body)),
+      body: init.body ?? JSON.stringify(unref(body)),
     })
       .then((res) => {
         if (!res.ok) {

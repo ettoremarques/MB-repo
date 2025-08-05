@@ -3,9 +3,9 @@
     class="mb-3"
     label="Nome"
     name="nome"
-    required
     :value="clientInfo.name"
     :error="errors.name"
+    required
     @update:value="(val) => updateClientInfo('name', val)"
   />
   <BaseInput
@@ -15,9 +15,9 @@
     pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}"
     placeholder="XXX.XXX.XXX-XX"
     invalid-message="Use a formatação correta"
-    required
     :value="clientInfo.cpf"
     :error="errors.cpf"
+    required
     @update:value="
       (val) => updateClientInfo('cpf', useFormatDocument(val, 'cpf'))
     "
@@ -27,9 +27,9 @@
     label="Data de nascimento"
     name="dataNascimento"
     type="date"
-    required
     :value="clientInfo.birthDate"
     :error="errors.birthDate"
+    required
     @update:value="(val) => updateClientInfo('birthDate', val)"
   />
   <BaseInput
@@ -39,9 +39,9 @@
     pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
     placeholder="(XX) XXXXX-XXXX"
     invalid-message="Use a formatação correta"
-    required
     :value="clientInfo.tel"
     :error="errors.tel"
+    required
     @update:value="(val) => updateClientInfo('tel', useFormatTel(val))"
   />
 </template>
@@ -54,5 +54,3 @@ import BaseInput from "../BaseInput.vue";
 
 const { clientInfo, updateClientInfo, errors } = inject("clientInfo");
 </script>
-
-<style lang="sass" scoped></style>

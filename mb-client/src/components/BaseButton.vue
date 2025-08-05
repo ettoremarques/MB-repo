@@ -6,7 +6,7 @@
     :disabled="props.disabled || props.loading"
   >
     <slot />
-    <BaseLoader class="ml-2" v-if="props.loading" />
+    <BaseLoader v-if="props.loading" class="ml-2" />
   </button>
 </template>
 

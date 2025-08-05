@@ -4,6 +4,8 @@
       <span class="mb-1">{{ label }}</span>
     </slot>
     <input
+      class="px-1 py-2"
+      :class="[props.error && 'invalid']"
       :id="props.id"
       :type="props.type"
       :pattern="props.pattern"
@@ -11,8 +13,6 @@
       :required="props.required"
       :placeholder="props.placeholder"
       :value="props.value"
-      class="px-1 py-2"
-      :class="[props.error && 'invalid']"
       @invalid="(e) => setCustomRequiredMessage(e, true)"
       @input="
         (e) => {
